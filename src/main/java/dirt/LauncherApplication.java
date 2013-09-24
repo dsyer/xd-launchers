@@ -11,10 +11,10 @@ import org.springframework.xd.dirt.container.XDContainer;
 @Configuration
 @EnableAutoConfiguration
 @ImportResource("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT + "launcher.xml")
-public class NodeApplication {
+public class LauncherApplication {
 
 	public static void main(String[] args) {
-		SpringApplication application = new SpringApplication(NodeApplication.class);
+		SpringApplication application = new SpringApplication(LauncherApplication.class);
 		application.setWebEnvironment(false);
 		ConfigurableEnvironment environment = new StandardEnvironment();
 		environment.addActiveProfile("node");

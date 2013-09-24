@@ -5,7 +5,7 @@ XD_HOME: ${xdHomeDir:${HOME}/dev/xd/spring-xd}
 spring:
   main:
     parentSources: classpath:/META-INF/spring-xd/internal/xd-global-beans.xml
-    
+
 ---
 
 spring:
@@ -17,3 +17,5 @@ spring:
   profiles: node
   main:
     webEnvironment: false
+management:
+  port: 9000
