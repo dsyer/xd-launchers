@@ -17,7 +17,6 @@
 	</parent>
 
 	<properties>
-		<start-class>dirt.Application</start-class>
 		<spring-integration.version>3.0.0.M3</spring-integration.version>
 	</properties>
 
@@ -35,6 +34,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.yaml</groupId>

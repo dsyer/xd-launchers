@@ -5,8 +5,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.web.context.support.StandardServletEnvironment;
 import org.springframework.xd.dirt.container.XDContainer;
 import org.springframework.xd.dirt.rest.RestConfiguration;
 
@@ -17,11 +15,8 @@ import org.springframework.xd.dirt.rest.RestConfiguration;
 public class AdminServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication application = new SpringApplication(AdminServerApplication.class);
-		ConfigurableEnvironment environment = new StandardServletEnvironment();
-		environment.setActiveProfiles("adminServer");
-		application.setEnvironment(environment);
-		application.run(args);
+		SpringApplication.run(new Object[] { AdminServerApplication.class },
+				new String[] { "--spring.profiles.active=adminServer" }, args);
 	}
 
 }

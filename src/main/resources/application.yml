@@ -15,7 +15,5 @@ spring:
 
 spring:
   profiles: node
-  main:
-    webEnvironment: false
 management:
   port: 9000

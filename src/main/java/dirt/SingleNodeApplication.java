@@ -7,12 +7,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.StandardEnvironment;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.BridgeHandler;
-import org.springframework.web.context.support.StandardServletEnvironment;
 
 @Configuration
 @Import(AdminServerApplication.class)
@@ -23,14 +20,12 @@ public class SingleNodeApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+		// TODO: maybe move some of this off to a convenience API in Boot? Sibling contexts?
 		SpringApplication application = new SpringApplication(LauncherApplication.class, "classpath:/META-INF/spring-xd/internal/container.xml");
-		application.setWebEnvironment(false);
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.setParent(admin.getParent());
 		application.setApplicationContext(context);
-		ConfigurableEnvironment environment = new StandardEnvironment();
-		environment.addActiveProfile("node");
-		application.setEnvironment(environment);
+		application.setDefaultArgs("--spring.profiles.active=node", "--management.port=0");
 		setUpControlChannels(admin, application.run(args));
 	}
 
@@ -49,11 +44,8 @@ public class SingleNodeApplication implements CommandLineRunner {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication application = new SpringApplication(SingleNodeApplication.class);
-		ConfigurableEnvironment environment = new StandardServletEnvironment();
-		environment.setActiveProfiles("adminServer");
-		application.setEnvironment(environment);
-		application.run(args);
+		SpringApplication.run(new Object[] { SingleNodeApplication.class },
+				new String[] { "--spring.profiles.active=adminServer" }, args);
 	}
 
 }
