@@ -17,7 +17,7 @@
 	</parent>
 
 	<properties>
-		<spring-integration.version>3.0.0.M3</spring-integration.version>
+		<spring-integration.version>3.0.0.BUILD-SNAPSHOT</spring-integration.version>
 	</properties>
 
 	<dependencies>
