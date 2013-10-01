@@ -15,7 +15,11 @@ import org.springframework.xd.dirt.rest.RestConfiguration;
 public class AdminServerApplication {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(AdminServerApplication.class).defaultArgs(
-				"--spring.profiles.active=adminServer", "--transport=redis").run(args);
+		SpringApplicationBuilder application = new SpringApplicationBuilder(
+				AdminServerApplication.class).defaultArgs(
+				"--spring.profiles.active=adminServer", "--transport=redis");
+		application.parent("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT
+				+ "xd-global-beans.xml");
+		application.run(args);
 	}
 }

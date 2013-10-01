@@ -14,9 +14,12 @@ import org.springframework.xd.dirt.container.XDContainer;
 public class LauncherApplication {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(LauncherApplication.class).web(false)
-				.defaultArgs("--spring.profiles.active=node", "--transport=redis")
-				.run(args);
+		SpringApplicationBuilder application = new SpringApplicationBuilder(
+				LauncherApplication.class).web(false).defaultArgs(
+				"--spring.profiles.active=node", "--transport=redis");
+		application.parent("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT
+				+ "xd-global-beans.xml");
+		application.run(args);
 	}
 
 }

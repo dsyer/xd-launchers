@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.core.SubscribableChannel;
 import org.springframework.integration.handler.BridgeHandler;
+import org.springframework.xd.dirt.container.XDContainer;
 
 public class SingleNodeApplication {
 
@@ -31,6 +32,8 @@ public class SingleNodeApplication {
 		SpringApplicationBuilder admin = new SpringApplicationBuilder(
 				AdminServerApplication.class)
 				.defaultArgs("--spring.profiles.active=adminServer");
+		admin.parent("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT
+				+ "xd-global-beans.xml");
 		admin.run(args);
 
 		SpringApplicationBuilder container = admin.sibling(LauncherApplication.class)
