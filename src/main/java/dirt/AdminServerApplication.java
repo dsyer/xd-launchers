@@ -1,7 +1,7 @@
 package dirt;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
@@ -15,8 +15,7 @@ import org.springframework.xd.dirt.rest.RestConfiguration;
 public class AdminServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(new Object[] { AdminServerApplication.class },
-				new String[] { "--spring.profiles.active=adminServer" }, args);
+		new SpringApplicationBuilder(AdminServerApplication.class).defaultArgs(
+				"--spring.profiles.active=adminServer", "--transport=redis").run(args);
 	}
-
 }
