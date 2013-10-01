@@ -9,6 +9,9 @@ import org.springframework.xd.dirt.container.XDContainer;
 
 public class SingleNodeApplication {
 
+	private static final String PARENT_CONTEXT = "classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT
+			+ "xd-global-beans.xml";
+
 	private static void setUpControlChannels(ApplicationContext adminContext,
 			ApplicationContext containerContext) {
 
@@ -29,11 +32,9 @@ public class SingleNodeApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplicationBuilder admin = new SpringApplicationBuilder(
-				AdminServerApplication.class)
-				.defaultArgs("--spring.profiles.active=adminServer");
-		admin.parent("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT
-				+ "xd-global-beans.xml");
+		SpringApplicationBuilder admin = new SpringApplicationBuilder(PARENT_CONTEXT)
+				.defaultArgs("--spring.profiles.active=adminServer").child(
+				AdminServerApplication.class);
 		admin.run(args);
 
 		SpringApplicationBuilder container = admin.sibling(LauncherApplication.class)

@@ -10,16 +10,18 @@ import org.springframework.xd.dirt.rest.RestConfiguration;
 
 @Configuration
 @EnableAutoConfiguration
-@ImportResource("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT + "admin-server.xml")
+@ImportResource("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT
+		+ "admin-server.xml")
 @Import(RestConfiguration.class)
 public class AdminServerApplication {
 
+	private static final String PARENT_CONTEXT = "classpath:"
+			+ XDContainer.XD_INTERNAL_CONFIG_ROOT + "xd-global-beans.xml";
+
 	public static void main(String[] args) {
-		SpringApplicationBuilder application = new SpringApplicationBuilder(
-				AdminServerApplication.class).defaultArgs(
-				"--spring.profiles.active=adminServer", "--transport=redis");
-		application.parent("classpath:" + XDContainer.XD_INTERNAL_CONFIG_ROOT
-				+ "xd-global-beans.xml");
-		application.run(args);
+		new SpringApplicationBuilder(PARENT_CONTEXT)
+				.defaultArgs("--spring.profiles.active=adminServer",
+						"--transport=redis")
+				.child(AdminServerApplication.class).run(args);
 	}
 }
