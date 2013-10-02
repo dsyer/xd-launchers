@@ -19,9 +19,8 @@ public class AdminServerApplication {
 			+ XDContainer.XD_INTERNAL_CONFIG_ROOT + "xd-global-beans.xml";
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(PARENT_CONTEXT)
-				.defaultArgs("--spring.profiles.active=adminServer",
-						"--transport=redis")
+		new SpringApplicationBuilder(PARENT_CONTEXT).profiles("adminServer")
+				.defaultArgs("--transport=redis")
 				.child(AdminServerApplication.class).run(args);
 	}
 }

@@ -17,8 +17,7 @@ public class LauncherApplication {
 	public static void main(String[] args) {
 		new SpringApplicationBuilder("classpath:"
 				+ XDContainer.XD_INTERNAL_CONFIG_ROOT + "xd-global-beans.xml")
-				.defaultArgs("--spring.profiles.active=node",
-						"--transport=redis").child(LauncherApplication.class)
-				.web(false).run(args);
+				.profiles("node").defaultArgs("--transport=redis")
+				.child(LauncherApplication.class).web(false).run(args);
 	}
 }
